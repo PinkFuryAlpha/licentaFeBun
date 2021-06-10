@@ -8,6 +8,7 @@ import axios from "axios";
 import "./LikedSongs.css";
 import {AiFillPlayCircle, AiFillPauseCircle} from "react-icons/ai";
 import InfoCard from "../card/InfoCard";
+import {BiNews} from "react-icons/bi";
 
 const pagination = {
   pageNumber: 0,
@@ -43,22 +44,50 @@ const LikedSongs = () => {
           }
         );
       });
-      console.log(likedSongs);
   }, []);
 
   const handlePlay = () => {
-    let playlist = [];
-    likedSongs.map((item, index) => {
-      const track = {
-        songId: `${item.id}`,
-        title: `${item.songName}`,
-        artist: `${item.artists[0]}`,
-        audioSrc: `${url}/media/getSong?songId=${item.id}`,
-        image: `${url}/media/getPhoto?photoId=${item.photoId}`,
-      };
-      playlist.push(track);
-    });
-    setSong(playlist);
+    if (likedSongs.length === 0) {
+      toast.error("There are no liked songs to play!", {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    } else {
+      let playlist = [];
+      likedSongs.map((item, index) => {
+        const track = {
+          songId: `${item.id}`,
+          title: `${item.songName}`,
+          artist: `${item.artists[0]}`,
+          audioSrc: `${url}/media/getSong?songId=${item.id}`,
+          image: `${url}/media/getPhoto?photoId=${item.photoId}`,
+        };
+        playlist.push(track);
+      });
+      setSong(playlist);
+    }
+  };
+
+  const removeSong = (value) => {
+    authAxios
+      .post(`${url}/songs/unLike`, null, {params: {songId: value}})
+      .then((res) => {
+        const newLikedSongs = [...likedSongs];
+        for (let i = 0; i < newLikedSongs.length; i++) {
+          if (newLikedSongs[i].id === value) {
+            newLikedSongs.splice(i, 1);
+            setLikedSongs(newLikedSongs);
+            break;
+          }
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          `${error.response.data.status}: ${error.response.data.message}`,
+          {
+            position: toast.POSITION.BOTTOM_LEFT,
+          }
+        );
+      });
   };
 
   return (
@@ -77,8 +106,8 @@ const LikedSongs = () => {
         <p className="text">Listen to your favourite songs!</p>
       </div>
       <div className="song_card_container">
-        {likedSongs.map((likedSong,index) => (
-          <InfoCard info={likedSong} />
+        {likedSongs.map((likedSong, index) => (
+          <InfoCard info={likedSong} removeSong={removeSong} />
         ))}
       </div>
       <ToastContainer />

@@ -4,8 +4,8 @@ import {ImHeartBroken} from "react-icons/im";
 import {url} from "../../../Constants";
 import "./InfoCard.css";
 
-const InfoCard = ({info}) => {
-  const {songName, artists, photoId} = info;
+const InfoCard = ({info, removeSong}) => {
+  const {id, songName, artists, photoId} = info;
 
   const handleClick = () => {
     console.log(info);
@@ -24,7 +24,7 @@ const InfoCard = ({info}) => {
         <p>{artists}</p>
       </div>
       <div className="unlike_container">
-        <ImHeartBroken className="unlike" onClick={handleClick} />
+        <ImHeartBroken className="unlike" onClick={() => removeSong(id)} />
       </div>
     </div>
   );

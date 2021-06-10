@@ -33,6 +33,11 @@
   cursor: pointer;
 }
 
+.control_buttons_active {
+  color: #7fffd4;
+  cursor: pointer;
+}
+
 .control_buttons:hover {
   transition: all 0.2s ease-in-out;
   color: #7fffd4;
@@ -68,18 +73,17 @@
 
 input[type="range"] {
   height: 5px;
-	-webkit-appearance: none;
-	width: 100%;
-	margin-bottom: 10px;
-	border-radius: 8px;
-	background: #7fffd4;
+  -webkit-appearance: none;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background: #7fffd4;
   margin-top: 20px;
-	transition:  0.2s ease;
+  transition: 0.2s ease;
   cursor: pointer;
-
 }
 
-input[type=range]::-webkit-slider-thumb{
+input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   border-radius: 25px;
@@ -87,6 +91,11 @@ input[type=range]::-webkit-slider-thumb{
   height: 15px;
   background: #7fffd4;
   cursor: pointer;
+}
+
+.volumeBar {
+  width: 60% !important;
+  margin-top: 10px !important;
 }
 
 .elements {

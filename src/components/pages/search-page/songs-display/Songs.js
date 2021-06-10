@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState, useRef} from "react";
 import {ToastContainer, toast} from "react-toastify";
 import {FaPlay} from "react-icons/fa";
+import Modal from "react-modal";
 import axios from "axios";
 import {url} from "../../../../Constants";
 import {
@@ -20,6 +21,8 @@ const Songs = ({pagination, authToken, setPages}) => {
   const {song, setSong} = useContext(SongContext);
 
   const [_songs, _setSongs] = useState([]);
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const authAxios = axios.create({
     baseUrl: url,
@@ -51,7 +54,7 @@ const Songs = ({pagination, authToken, setPages}) => {
       .then((res) => {
         const track = [
           {
-            songId:`${value}`,
+            songId: `${value}`,
             title: `${res.data.songName}`,
             artist: `${res.data.artists[0]}`,
             audioSrc: `${url}/media/getSong?songId=${res.data.id}`,
@@ -84,11 +87,49 @@ const Songs = ({pagination, authToken, setPages}) => {
             </AlbumPhotoWrapper>
             <SongName>{song.songName}</SongName>
           </SongNameContainer>
-          <SongText>{song.artists.map((artist,index) => artist)}</SongText>
+          <SongText>{song.artists.map((artist, index) => artist)}</SongText>
           <SongText>{song.genre}</SongText>
           <SongText>{song.views}</SongText>
           <SongText>{song.upVotes}</SongText>
-          <SongOptions></SongOptions>
+          <SongOptions
+            onClick={() => {
+              setModalIsOpen(true);
+            }}
+          />
+          <Modal
+            style={{
+              overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(0, 0, 0, 0.75);",
+              },
+              content: {
+                position: "absolute",
+                top: "40px",
+                left: "40px",
+                right: "40px",
+                bottom: "40px",
+                border: "1px solid #ccc",
+                background: "pink",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "4px",
+                outline: "none",
+                padding: "20px",
+                width:"20px",
+                height:"20px",
+              },
+            }}
+            isOpen={modalIsOpen}
+            onRequestClose={() => {
+              setModalIsOpen(false);
+            }}
+          >
+            <h3>Hello from Modal!</h3>
+          </Modal>
         </SongContainer>
       ))}
       <ToastContainer />

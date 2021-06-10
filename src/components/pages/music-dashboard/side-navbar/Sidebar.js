@@ -25,6 +25,10 @@ const Sidebar = () => {
     history.push("/music");
   };
 
+  const handleMyProfile = () => {
+    history.push("/my-profile");
+  };
+
   return (
     <SidebarContainer>
       <ProfilePicture />
@@ -37,7 +41,7 @@ const Sidebar = () => {
       <SeparatorNavbar />
       <IconWrapper>
         <IconProfile></IconProfile>
-        <IconText>MyProfile</IconText>
+        <IconText onClick={handleMyProfile}>MyProfile</IconText>
       </IconWrapper>
       <IconWrapper>
         <IconSearch></IconSearch>

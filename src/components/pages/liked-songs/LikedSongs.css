@@ -77,7 +77,6 @@
   padding: 38px 90px 38px 90px;
   background: #121212;
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
   flex-wrap: wrap;
 }

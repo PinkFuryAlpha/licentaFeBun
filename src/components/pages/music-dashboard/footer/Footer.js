@@ -31,9 +31,10 @@ const Footer = () => {
   });
 
   const [like, setLike] = useState(false);
-
+  const [repeatSong, setRepeatSong] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
+  const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const {songId, title, artist, image, audioSrc} = song[trackIndex];
@@ -51,56 +52,20 @@ const Footer = () => {
   -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
 `;
 
-  useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
-      startTimer();
-    } else {
-      audioRef.current.pause();
-    }
-  }, [isPlaying]);
+  const handleVolume = (value) => {
+    setVolume(value);
+    audioRef.current.volume = value;
+  };
 
-  useEffect(() => {
-    return () => {
-      audioRef.current.pause();
-      clearInterval(intervalRef.current);
-    };
-  }, []);
+  const handleMute = () => {
+    setVolume(0);
+    audioRef.current.volume = 0;
+  };
 
-  useEffect(() => {
-    audioRef.current.pause();
-
-    audioRef.current = new Audio(audioSrc);
-    setTrackProgress(audioRef.current.currentTime);
-
-    if (isReady.current) {
-      audioRef.current.play();
-      setIsPlaying(true);
-      startTimer();
-    } else {
-      isReady.current = true;
-    }
-  }, [trackIndex, song]);
-
-  useEffect(() => {
-    authAxios
-      .get(`${url}/songs/isSongLikedByUser`, {params: {songId: songId}})
-      .then((res) => {
-        if (res.data === true) {
-          setLike(true);
-        } else {
-          setLike(false);
-        }
-      })
-      .catch((error) => {
-        toast.error(
-          `${error.response.data.status}: ${error.response.data.message}`,
-          {
-            position: toast.POSITION.BOTTOM_LEFT,
-          }
-        );
-      });
-  }, [songId]);
+  const handleMaxVolume = () => {
+    setVolume(1);
+    audioRef.current.volume = 1;
+  };
 
   const toPrevTrack = () => {
     if (trackIndex - 1 < 0) {
@@ -179,6 +144,86 @@ const Footer = () => {
       });
   };
 
+  function shuffle(array) {
+    var currentIndex = array.length,
+      randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
+  const handleShuffle = () => {
+    const shuffledPlaylist = [...song];
+    shuffle(shuffledPlaylist);
+    setSong(shuffledPlaylist);
+  };
+
+  const onRepeatHandle = () => {
+    setRepeatSong(!repeatSong);
+  };
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+      startTimer();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    return () => {
+      audioRef.current.pause();
+      clearInterval(intervalRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    audioRef.current.pause();
+
+    audioRef.current = new Audio(audioSrc);
+    setTrackProgress(audioRef.current.currentTime);
+
+    if (isReady.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      startTimer();
+    } else {
+      isReady.current = true;
+    }
+
+    audioRef.current.volume = volume;
+  }, [trackIndex, song]);
+
+  useEffect(() => {
+    authAxios
+      .get(`${url}/songs/isSongLikedByUser`, {params: {songId: songId}})
+      .then((res) => {
+        if (res.data === true) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
+      })
+      .catch((error) => {
+        toast.error(
+          `${error.response.data.status}: ${error.response.data.message}`,
+          {
+            position: toast.POSITION.BOTTOM_LEFT,
+          }
+        );
+      });
+  }, [songId]);
+
   return (
     <FooterContainer>
       {song && (
@@ -203,7 +248,11 @@ const Footer = () => {
           </div>
           <div className="center">
             <div className="song_controls">
-              <ImShuffle size={"20px"} className="control_buttons" />
+              <ImShuffle
+                size={"20px"}
+                className="control_buttons"
+                onClick={handleShuffle}
+              />
               <BsFillSkipBackwardFill
                 size={"20px"}
                 className="control_buttons"
@@ -227,7 +276,19 @@ const Footer = () => {
                 className="control_buttons"
                 onClick={toNextTrack}
               />
-              <RiRepeatLine size={"20px"} className="control_buttons" />
+              {repeatSong ? (
+                <RiRepeatLine
+                  size={"20px"}
+                  className="control_buttons"
+                  onClick={onRepeatHandle}
+                />
+              ) : (
+                <RiRepeatLine
+                  size={"20px"}
+                  className="control_buttons_active"
+                  onClick={onRepeatHandle}
+                />
+              )}
             </div>
             <input
               type="range"
@@ -244,9 +305,22 @@ const Footer = () => {
 
           <div className="right">
             <BiAlbum size={"20px"} className="control_buttons" />
-            <BsFillVolumeMuteFill size={"20px"} className="control_buttons" />
-            <Slider className="slider_volume" />
-            <BsFillVolumeUpFill size={"20px"} className="control_buttons" />
+            <BsFillVolumeMuteFill
+              size={"25px"}
+              className="control_buttons"
+              onClick={handleMute}
+            />
+            <input
+              type="range"
+              value={Math.round(volume * 100)}
+              className="volumeBar"
+              onChange={(e) => handleVolume(e.target.value / 100)}
+            />
+            <BsFillVolumeUpFill
+              size={"25px"}
+              className="control_buttons"
+              onClick={handleMaxVolume}
+            />
           </div>
         </div>
       )}

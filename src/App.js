@@ -13,6 +13,10 @@ import Sidebar from "./components/pages/music-dashboard/side-navbar/Sidebar";
 import Footer from "./components/pages/music-dashboard/footer/Footer";
 import SearchPage from "./components/pages/search-page/SearchPage";
 import LikedSongs from "./components/pages/liked-songs/LikedSongs";
+import Modal from "react-modal";
+import MyProfile from "./components/pages/my-profile/MyProfile";
+
+Modal.setAppElement("#root");
 
 function App() {
   const [user, setUser] = useState(null);
@@ -39,6 +43,7 @@ function App() {
                   <div className="bodyContainer">
                     <Route path="/music" exact component={SearchPage} />
                     <Route path="/liked-songs" exact component={LikedSongs} />
+                    <Route path="/my-profile" exact component={MyProfile} />
                   </div>
                   {user && song && <Footer />}
                 </SongContext.Provider>
