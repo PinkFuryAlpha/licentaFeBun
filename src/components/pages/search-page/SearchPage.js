@@ -13,6 +13,7 @@ import {
 import Songs from "./songs-display/Songs";
 import SongInfoColumn from "./songs-top-bar/SongInfoColumn";
 import PagesComponent from "./pages-scroll/PagesComponent";
+import SearchDropdown from "./dropdowns/SearchDropdown";
 
 const _tableHeads = [
   "Song Name",
@@ -36,6 +37,8 @@ const SearchPage = () => {
   });
 
   const [_pages, setPages] = useState(0);
+
+  const [searchDropdown, setSearchDropdown] = useState(false);
 
   const accesToken = user.data.jwtToken;
 
@@ -68,12 +71,18 @@ const SearchPage = () => {
           value={searchTerm}
           onChange={(e) => handleChange(e.target.value)}
         />
-        <SearchButton>
+        <SearchButton onClick={() => setSearchDropdown(!searchDropdown)}>
           <FcSearch />
         </SearchButton>
+        {searchDropdown && <SearchDropdown setPagination={setPagination} setSearchDropdown={setSearchDropdown}/>}
       </SearchBarWrapper>
       <SongInfoColumn tableHeads={_tableHeads} />
-      <Songs pagination={_pagination} authToken={accesToken} setPages={setPages} />
+      <Songs
+        pagination={_pagination}
+        authToken={accesToken}
+        setPages={setPages}
+        searchTerm={searchTerm}
+      />
       <PagesComponent pages={_pages} pageChange={changePage} />
       <ToastContainer />
     </div>

@@ -11,6 +11,7 @@ import {
   IconHeart,
   IconWrapper,
   IconText,
+  IconAlbum,
 } from "./SidebarElements";
 
 const Sidebar = () => {
@@ -29,9 +30,13 @@ const Sidebar = () => {
     history.push("/my-profile");
   };
 
+  const handlePlaylist = () => {
+    history.push("/my-playlists")
+  }
+
   return (
     <SidebarContainer>
-      <ProfilePicture />
+      <ProfilePicture pictureId={user.data.photoId} />
       <InfoText>
         {user.data.firstName} {user.data.lastName}
       </InfoText>
@@ -51,7 +56,10 @@ const Sidebar = () => {
         <IconHeart></IconHeart>
         <IconText onClick={handleClick}>Liked Songs</IconText>
       </IconWrapper>
-      <InfoText>My Playlists</InfoText>
+      <IconWrapper>
+        <IconAlbum></IconAlbum>
+        <IconText onClick={handlePlaylist}>My Playlists</IconText>
+      </IconWrapper>
     </SidebarContainer>
   );
 };

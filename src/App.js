@@ -15,6 +15,7 @@ import SearchPage from "./components/pages/search-page/SearchPage";
 import LikedSongs from "./components/pages/liked-songs/LikedSongs";
 import Modal from "react-modal";
 import MyProfile from "./components/pages/my-profile/MyProfile";
+import MyPlaylists from "./components/pages/playlists/MyPlaylists";
 
 Modal.setAppElement("#root");
 
@@ -44,6 +45,7 @@ function App() {
                     <Route path="/music" exact component={SearchPage} />
                     <Route path="/liked-songs" exact component={LikedSongs} />
                     <Route path="/my-profile" exact component={MyProfile} />
+                    <Route path="/my-playlists" exact component={MyPlaylists} />
                   </div>
                   {user && song && <Footer />}
                 </SongContext.Provider>

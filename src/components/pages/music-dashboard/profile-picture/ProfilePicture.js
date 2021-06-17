@@ -1,15 +1,20 @@
-import React from 'react';
+import React from "react";
 import DefaultPicture from "./default_profile.jpg";
-import { PictureWrapper, ProfilePictureContainer } from './ProfilePictureElement'
+import {url} from "../../../../Constants";
+import {PictureWrapper, ProfilePictureContainer} from "./ProfilePictureElement";
 
-const ProfilePicture = () => {
-    return (
-        <ProfilePictureContainer>
-            <PictureWrapper>
-                <img src={DefaultPicture} alt= "Profile Picture"/>
-            </PictureWrapper>
-        </ProfilePictureContainer>
-    )
-}
+const ProfilePicture = ({pictureId}) => {
+  return (
+    <ProfilePictureContainer>
+      <PictureWrapper>
+        <img
+          src={`${url}/media/getPhoto?photoId=${pictureId}`}
+          alt="Profile Picture"
+        />
+      </PictureWrapper>
+    </ProfilePictureContainer>
+  );
+};
 
-export default ProfilePicture
+export default ProfilePicture;
+// `${url}/media/getPhoto?photoId=${photoId}`

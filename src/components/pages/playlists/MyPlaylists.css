@@ -1,0 +1,16 @@
+.my_playlist_container {
+  background: #000428;
+  background: -webkit-linear-gradient(to right, #004e92, #000428);
+  background: linear-gradient(to right, #004e92, #000428);
+}
+
+.my_playlist_title_container {
+  background: #ff00cc;
+  background: -webkit-linear-gradient(to right, #333399, #ff00cc);
+  background: linear-gradient(to right, #333399, #ff00cc);
+  border-bottom: none;
+}
+
+.my_playlist_create_container {
+  background: black;
+}

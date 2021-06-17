@@ -10,11 +10,12 @@ p {
 .card_container {
   width: 330px;
   height: 100px;
-  background: #be1433;
+  background: #740154;
   display: flex;
   border-radius: 25px;
   border: 3px solid rgba(255, 255, 255, 0.7);
   margin-left: 20px;
+  margin-top: 20px;
 }
 
 .photo_wrapper {

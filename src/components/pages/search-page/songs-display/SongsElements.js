@@ -5,6 +5,7 @@ export const SongsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
+  
 `;
 
 export const SongContainer = styled.div`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {ImProfile, ImHeart, ImSearch} from "react-icons/im";
+import {FaCreativeCommonsSamplingPlus} from "react-icons/fa";
 
 export const SidebarContainer = styled.div`
   border: 1px solid black;
@@ -41,6 +42,11 @@ font-size: 1.6rem;
 `;
 
 export const IconHeart = styled(ImHeart)`
+color: #fff;
+font-size: 1.6rem;
+`;
+
+export const IconAlbum = styled(FaCreativeCommonsSamplingPlus)`
 color: #fff;
 font-size: 1.6rem;
 `;

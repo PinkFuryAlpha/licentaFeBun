@@ -9,7 +9,7 @@ export const ProfilePictureContainer = styled.div`
 `;
 
 export const PictureWrapper = styled.div`
-  width: 110px;
+  width: 120px;
   height: 100px;
   img {
     width: 100%;

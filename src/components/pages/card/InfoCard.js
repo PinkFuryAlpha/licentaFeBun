@@ -4,7 +4,7 @@ import {ImHeartBroken} from "react-icons/im";
 import {url} from "../../../Constants";
 import "./InfoCard.css";
 
-const InfoCard = ({info, removeSong}) => {
+const InfoCard = ({info, removeSong, color}) => {
   const {id, songName, artists, photoId} = info;
 
   const handleClick = () => {
@@ -12,7 +12,7 @@ const InfoCard = ({info, removeSong}) => {
   };
 
   return (
-    <div className="card_container">
+    <div className="card_container" >
       <div className="photo_wrapper">
         <img
           src={`${url}/media/getPhoto?photoId=${photoId}`}

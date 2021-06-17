@@ -51,14 +51,10 @@ const Register = () => {
     if (initialRender.current) {
       initialRender.current = false;
     } else {
-      console.log("called api");
       if (Object.keys(errors).length === 0) {
-        console.log(formValues);
-        console.log(url);
         axios
           .post(`${url}/register`, formValues)
           .then((response) => {
-            console.log(response);
             toast.success("Registered succsesfully", {
               position: toast.POSITION.BOTTOM_LEFT,
             });
