@@ -103,7 +103,7 @@ const LikedSongs = () => {
       </div>
       <div className="play_container">
         <AiFillPlayCircle className="play_stop" onClick={handlePlay} />
-        <p className="text">Listen to your favourite songs!</p>
+        <h2 className="text">Listen to your favourite songs!</h2>
       </div>
       <div className="song_card_container">
         {likedSongs.map((likedSong, index) => (

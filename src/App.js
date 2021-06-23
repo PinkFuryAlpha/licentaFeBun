@@ -1,9 +1,13 @@
 import "./App.css";
 import React, {useState, useMemo} from "react";
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Home from "./components/pages/Home";
 import About from "./components/pages/About";
-import ContactUs from "./components/pages/ContactUs";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./components/pages/login/Login";
 import Register from "./components/pages/register/Register";
@@ -16,6 +20,7 @@ import LikedSongs from "./components/pages/liked-songs/LikedSongs";
 import Modal from "react-modal";
 import MyProfile from "./components/pages/my-profile/MyProfile";
 import MyPlaylists from "./components/pages/playlists/MyPlaylists";
+import ServicesDescription from "./components/pages/ServicesDescription";
 
 Modal.setAppElement("#root");
 
@@ -31,12 +36,12 @@ function App() {
         {!user && <Navbar />}
         <Switch>
           <UserContext.Provider value={provider}>
-            <Route path="/" exact component={Home} />
+            <Route path="/home" exact component={Home} />
             <Route path="/about" exact component={About} />
-            <Route path="/contact-us" exact component={ContactUs} />
             <Route path="/sign-in" exact component={Login} />
             <Route path="/sign-up" exact component={Register} />
-
+            <Route path="/services" exact component={ServicesDescription} />
+            <Redirect to="/home" />
             {user && (
               <div className="displayBody">
                 <SongContext.Provider value={{song, setSong}}>

@@ -81,7 +81,8 @@ const Songs = ({pagination, authToken, setPages, searchTerm}) => {
             return song;
           } else if (
             song.songName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            song.genre.toLowerCase().includes(searchTerm.toLowerCase()) 
+            song.genre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.artists[0].toLowerCase().includes(searchTerm.toLowerCase())
           ) {
             return song;
           }

@@ -6,7 +6,6 @@ const NavLinks = () => {
     <NavMenu>
       <NavLink to="/about">About</NavLink>
       <NavLink to="/services">Services</NavLink>
-      <NavLink to="/contact-us">Contact us</NavLink>
       <Separator>|</Separator>
       <NavLink to="/sign-up">Sign Up</NavLink>
       <NavLink to="/sign-in">Sign In</NavLink>

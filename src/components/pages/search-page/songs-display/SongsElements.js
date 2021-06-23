@@ -5,7 +5,6 @@ export const SongsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
-  
 `;
 
 export const SongContainer = styled.div`
@@ -67,6 +66,7 @@ export const SongText = styled.p`
   cursor: context-menu;
   font-weight: 500;
   padding-top: 6px;
+  display: block !important;
 `;
 
 export const SongName = styled.p`

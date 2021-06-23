@@ -15,9 +15,9 @@ import {ImShuffle} from "react-icons/im";
 import {RiRepeatLine} from "react-icons/ri";
 import {BiAlbum} from "react-icons/bi";
 import {BsFillVolumeUpFill, BsFillVolumeMuteFill} from "react-icons/bs";
-import {Slider} from "@material-ui/core";
 import {url} from "../../../../Constants";
 import "./Footer.css";
+import AddToAlbumModal from "../../playlists/create-album-modal/AddToAlbumModal";
 
 const Footer = () => {
   const {user, setUser} = useContext(UserContext);
@@ -30,12 +30,14 @@ const Footer = () => {
     },
   });
 
+  const [albumModal, isAlbumModalOpen] = useState(false);
   const [like, setLike] = useState(false);
   const [repeatSong, setRepeatSong] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [albumList, setAlbumList] = useState([]);
 
   const {songId, title, artist, image, audioSrc} = song[trackIndex];
 
@@ -188,6 +190,22 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
+    authAxios
+      .get(`${url}/playlist/getUserPlaylists`)
+      .then((res) => {
+        setAlbumList(res.data);
+      })
+      .catch((error) => {
+        toast.error(
+          `${error.response.data.status}: ${error.response.data.message}`,
+          {
+            position: toast.POSITION.BOTTOM_LEFT,
+          }
+        );
+      });
+  }, [albumModal]);
+
+  useEffect(() => {
     audioRef.current.pause();
 
     audioRef.current = new Audio(audioSrc);
@@ -304,7 +322,11 @@ const Footer = () => {
           </div>
 
           <div className="right">
-            <BiAlbum size={"20px"} className="control_buttons" />
+            <BiAlbum
+              size={"20px"}
+              className="control_buttons"
+              onClick={() => isAlbumModalOpen(true)}
+            />
             <BsFillVolumeMuteFill
               size={"25px"}
               className="control_buttons"
@@ -324,6 +346,13 @@ const Footer = () => {
           </div>
         </div>
       )}
+      <AddToAlbumModal
+        isModalOpen={albumModal}
+        closeModal={isAlbumModalOpen}
+        albumList={albumList}
+        songId={song[trackIndex]}
+        authAxios={authAxios}
+      />
       <ToastContainer />
     </FooterContainer>
   );

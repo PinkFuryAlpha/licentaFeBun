@@ -43,7 +43,7 @@ const SearchDropdown = ({setPagination, setSearchDropdown}) => {
           <option value="1">Artists</option>
           <option value="genre">Genre</option>
           <option value="views">Views</option>
-          <option value="likes">Likes</option>
+          <option value="upVotes">Likes</option>
         </select>
       </div>
       <div>

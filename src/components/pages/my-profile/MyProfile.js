@@ -7,7 +7,9 @@ import {TiUpload} from "react-icons/ti";
 import "./MyProfile.css";
 import InfoCard from "../card/InfoCard";
 import UploadSongForm from "./UploadSongForm";
-import ResetPasswordForm from "./reset-password/ResetPasswordForm";
+import ConfirmModal from "../playlists/create-album-modal/ConfirmModal";
+
+const modalQuestion = "Are you sure you want to proceed changing your password?"
 
 const MyProfile = () => {
   const {user, setUser} = useContext(UserContext);
@@ -49,10 +51,6 @@ const MyProfile = () => {
       });
   };
 
-  const passwordModalHandler = () => {
-    setPasswordModal(!passwordModal);
-  };
-
   const removeSong = (value) => {
     authAxios
       .delete(`${url}/songs/delete`, {params: {songId: value}})
@@ -85,37 +83,43 @@ const MyProfile = () => {
 
   const profileImageUpload = (e) => {
     e.preventDefault();
-    if (!profileImage.name.match(/.(jpg|jpeg|png)$/i) || !profileImage) {
+    try {
+      if (!profileImage.name.match(/.(jpg|jpeg|png)$/i)) {
+        toast.error(`This file doesn't have an image format!`, {
+          position: toast.POSITION.BOTTOM_LEFT,
+        });
+      } else {
+        const formData = new FormData();
+        formData.append("file", profileImage);
+        const config = {
+          headers: {
+            "content-type": "multipart/formData",
+          },
+        };
+        authAxios
+          .post(`${url}/users/save-profile-image`, formData, config)
+          .then((res) => {
+            const newUser = {...user};
+            setUser({
+              ...newUser,
+            });
+            toast.success(`Profile image updated!`, {
+              position: toast.POSITION.BOTTOM_LEFT,
+            });
+          })
+          .catch((error) => {
+            toast.error(
+              `${error.response.data.status}: ${error.response.data.message}`,
+              {
+                position: toast.POSITION.BOTTOM_LEFT,
+              }
+            );
+          });
+      }
+    } catch (error) {
       toast.error(`This file doesn't have an image format!`, {
         position: toast.POSITION.BOTTOM_LEFT,
       });
-    } else {
-      const formData = new FormData();
-      formData.append("file", profileImage);
-      const config = {
-        headers: {
-          "content-type": "multipart/formData",
-        },
-      };
-      authAxios
-        .post(`${url}/users/save-profile-image`, formData, config)
-        .then((res) => {
-          const newUser = {...user};
-          setUser({
-            ...newUser,
-          });
-          toast.success(`Profile image updated!`, {
-            position: toast.POSITION.BOTTOM_LEFT,
-          });
-        })
-        .catch((error) => {
-          toast.error(
-            `${error.response.data.status}: ${error.response.data.message}`,
-            {
-              position: toast.POSITION.BOTTOM_LEFT,
-            }
-          );
-        });
     }
   };
 
@@ -180,8 +184,7 @@ const MyProfile = () => {
         <a
           className="button_my_profile"
           onClick={() => {
-            passwordModalHandler();
-            sendPasswordResetEmail();
+            setPasswordModal(true);
           }}
         >
           Change Password
@@ -245,9 +248,11 @@ const MyProfile = () => {
         setUserSongs={setUserSongs}
         username={user.data.username}
       />
-      <ResetPasswordForm
-        isModalOpen={passwordModal}
-        modalHandler={passwordModalHandler}
+      <ConfirmModal
+        modalQuestion={modalQuestion}
+        isOpen={passwordModal}
+        closeModal={setPasswordModal}
+        handleFunction={sendPasswordResetEmail}
       />
       <ToastContainer />
     </div>

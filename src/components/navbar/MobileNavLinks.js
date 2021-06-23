@@ -33,9 +33,6 @@ const MobileNavLinks = () => {
             <LinkItem>
               <Link href="/services">How it works</Link>
             </LinkItem>
-            <LinkItem>
-              <Link href="/contact-us">Contact-Us</Link>
-            </LinkItem>
             <SeparatorMobile />
             <BtnWrapper>
               <NavBtn>

@@ -2,6 +2,8 @@
   background: #000428;
   background: -webkit-linear-gradient(to right, #004e92, #000428);
   background: linear-gradient(to right, #004e92, #000428);
+  overflow-y: overlay;
+  height: 100vh;
 }
 
 .my_playlist_title_container {
@@ -14,3 +16,91 @@
 .my_playlist_create_container {
   background: black;
 }
+
+.playlist_container {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  padding: 10px;
+  padding-left: 20px;
+  height: 50px;
+  width: 77.7%;
+  border: 1px solid #cb0dbf;
+}
+
+.playlist_container:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 1s ease-in-out;
+  background: #ff00cc;
+  background: -webkit-linear-gradient(to right, #000428, #ff00cc);
+  background: linear-gradient(to right, #000428, #ff00cc);
+}
+
+p:nth-child(2) {
+  display: none;
+}
+
+.playlist_container:hover p:nth-child(1) {
+  display: none;
+}
+
+.playlist_container:hover p:nth-child(2) {
+  display: flex;
+  margin-top: 3px;
+}
+
+.playlist_info {
+  display: flex;
+  justify-content: left;
+  flex: 0.4;
+}
+
+.playlist_icon {
+  margin-top: 15px;
+  margin-right: 20px;
+  font-size: 20px;
+  color: white;
+}
+
+.playlist_icon:hover{
+  cursor: pointer;
+}
+
+.playlist_title {
+  margin-left: 100px;
+}
+
+.delete_playlist:hover {
+  cursor: pointer;
+}
+
+.modal_control_buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal_button_album {
+  padding: 10px !important;
+  font-size: 15px;
+  width: 100px;
+}
+
+.song_card_modal{
+  display: flex !important;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-left: 30px;
+}
+
+.song_card_modal:hover{
+  transition: 2s ease-in-out;
+  background: #000000;
+  background: -webkit-linear-gradient(to right, #000000, #434343);
+  background: linear-gradient(to right, #000000, #434343);
+}
+
+.override_display{
+  display:block !important;
+}
+
