@@ -36,10 +36,10 @@ const MobileNavLinks = () => {
             <SeparatorMobile />
             <BtnWrapper>
               <NavBtn>
-                <NavBtnLink to="/sign-in">Sign in</NavBtnLink>
+                <NavBtnLink href="/sign-in">Sign in</NavBtnLink>
               </NavBtn>
               <NavBtn>
-                <NavBtnLink to="/sign-up">Sign up</NavBtnLink>
+                <NavBtnLink href="/sign-up">Sign up</NavBtnLink>
               </NavBtn>
             </BtnWrapper>
             <LogoWrapperMobile>

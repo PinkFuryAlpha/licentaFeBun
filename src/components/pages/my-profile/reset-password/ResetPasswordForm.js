@@ -3,7 +3,7 @@ import {ToastContainer, toast} from "react-toastify";
 import axios from "axios";
 import {url} from "../../../../Constants";
 import Modal from "react-modal";
-import validateForm from "./ValidateForm";
+import validateForm from "../../ValidateForm";
 import "./ResetPasswordForm.css";
 import {
   ErrorMessage,
@@ -85,7 +85,7 @@ const ResetPasswordForm = ({isModalOpen, modalHandler}) => {
       >
         <h1>Change password</h1>
         <p>
-          Paste the link recieved by email bellow, then proceed with the form:
+          Paste the code recieved by email bellow, then proceed with the form:
         </p>
         <form onSubmit={(e) => handleSubmit(e)}>
           <FormFieldWrapper>

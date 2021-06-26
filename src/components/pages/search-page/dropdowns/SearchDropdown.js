@@ -40,7 +40,7 @@ const SearchDropdown = ({setPagination, setSearchDropdown}) => {
         <p>Sort by field:</p>
         <select name="sortBy" onChange={(e) => handleChange(e)}>
           <option selected="songName">Song Name</option>
-          <option value="1">Artists</option>
+          <option value="artists">Artists</option>
           <option value="genre">Genre</option>
           <option value="views">Views</option>
           <option value="upVotes">Likes</option>

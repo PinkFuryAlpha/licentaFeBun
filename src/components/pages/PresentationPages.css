@@ -1,6 +1,6 @@
 .about_container {
   background: url(../images/about_page_background.jpg) no-repeat center fixed;
-  background-size: 100%;
+  background-size: cover;
   height: 100vh;
   display: flex;
   position: relative;
@@ -38,7 +38,7 @@
 
 .home_page_image_container {
   background: url(../images/home-page.jpg) no-repeat;
-  background-size: 100%;
+  background-size: cover;
   height: 50vh;
   display: flex;
   position: relative;
@@ -196,3 +196,4 @@
     margin: 30px;
   }
 }
+

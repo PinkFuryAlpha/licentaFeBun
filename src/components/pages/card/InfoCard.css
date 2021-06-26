@@ -7,6 +7,13 @@ p {
   color: white;
 }
 
+.override_p {
+  display: block !important;
+  margin: 2px !important;
+}
+
+
+
 .card_container {
   width: 330px;
   height: 100px;

@@ -35,7 +35,14 @@ const AddToAlbumModal = ({
       .post(`${url}/playlist/addSong`, null, {
         params: {songId: songId.songId, playlistId: playlistId},
       })
-      .then((res) =>{})
+      .then((res) =>{
+        toast.success(
+          `Song added to album!`,
+          {
+            position: toast.POSITION.BOTTOM_LEFT,
+          }
+        );
+      })
       .catch((error) => {
         toast.error(
           `${error.response.data.status}: ${error.response.data.message}`,

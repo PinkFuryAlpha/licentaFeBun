@@ -12,7 +12,7 @@ const InfoCard = ({info, removeSong, color}) => {
   };
 
   return (
-    <div className="card_container" >
+    <div className="card_container">
       <div className="photo_wrapper">
         <img
           src={`${url}/media/getPhoto?photoId=${photoId}`}
@@ -20,8 +20,8 @@ const InfoCard = ({info, removeSong, color}) => {
         />
       </div>
       <div className="info_container">
-        <h4>{songName}</h4>
-        <p>{artists}</p>
+        <h4 className="override_p">{songName}</h4>
+        <p className="override_p">{artists}</p>
       </div>
       <div className="unlike_container">
         <ImHeartBroken className="unlike" onClick={() => removeSong(id)} />

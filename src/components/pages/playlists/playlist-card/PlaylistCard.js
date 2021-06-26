@@ -23,6 +23,7 @@ const PlaylistCard = ({
       .get(`${url}/playlist`, {params: {playlistId: playlistId}})
       .then((res) => {
         if (res.data.songs.length === 0) {
+          console.log(playlistId)
           toast.error(
             `The playlist should at least have one song in order to be played!`,
             {
@@ -58,7 +59,7 @@ const PlaylistCard = ({
     <div>
       <div className="playlist_container">
         <div className="playlist_info">
-          <p>{index}</p>
+          <p>{index + 1}</p>
           <p>
             <FaPlayCircle className="playlist_icon" onClick={handlePlayAlbum} />
           </p>
@@ -67,6 +68,7 @@ const PlaylistCard = ({
             onClick={() => {
               handleOpen();
               handleModalInfo();
+              setPlaylistId();
             }}
           >
             {playlistName}

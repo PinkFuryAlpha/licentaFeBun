@@ -9,6 +9,7 @@ import PlaylistCard from "./playlist-card/PlaylistCard";
 import CreateAlbumModal from "./create-album-modal/CreateAlbumModal";
 import ConfirmModal from "./create-album-modal/ConfirmModal";
 import PlaylistModal from "./create-album-modal/PlaylistModal";
+import {SearchInput, SearchBarWrapper} from "../search-page/SearchPageElements";
 
 const deletePlaylistText =
   "Are you sure you want to delete the playlist? The action is ireversible.";
@@ -22,6 +23,7 @@ const MyPlaylists = () => {
   const [deletePlaylistModal, isDeletePlaylistModalOpen] = useState(false);
   const [playlistModal, isPlaylistModalOpen] = useState(false);
   const [playlistId, setPlaylistId] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const authAxios = axios.create({
     baseUrl: url,
@@ -29,6 +31,10 @@ const MyPlaylists = () => {
       Authorization: `Bearer ${user.data.jwtToken}`,
     },
   });
+
+  const handleChange = (value) => {
+    setSearchTerm(value);
+  };
 
   const handleModalAlbum = (id) => {
     authAxios
@@ -102,7 +108,16 @@ const MyPlaylists = () => {
     <div className="liked_songs_container my_playlist_container">
       <div>
         <h1 className="title">You can create your own playlists!</h1>
-        <h3 className="title_info">There are: XX personal playlists!</h3>
+        <div>
+          <input
+            name="search"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => handleChange(e.target.value)}
+            className="input_search"
+          />
+        </div>
       </div>
       <div className="play_container my_playlist_title_container">
         <IoIosCreate
@@ -112,23 +127,33 @@ const MyPlaylists = () => {
         <h2 className="text">Click the icon in order to create a new album</h2>
       </div>
       <div>
-        {playlists.map((playlist, index) => (
-          <PlaylistCard
-            playlistName={playlist.albumName}
-            playlistId={playlist.id}
-            index={index}
-            handleDelete={() => isDeletePlaylistModalOpen(true)}
-            setPlaylistId={() => {
-              setPlaylistId(playlist.id);
-            }}
-            handleOpen={() => {
-              isPlaylistModalOpen(true);
-              setAlbumName(playlist.albumName);
-            }}
-            handleModalInfo={() => handleModalAlbum(playlist.id)}
-            authAxios={authAxios}
-          />
-        ))}
+        {playlists
+          .filter((playlist) => {
+            if (searchTerm === "") {
+              return playlist;
+            } else if (
+              playlist.albumName.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return playlist;
+            }
+          })
+          .map((playlist, index) => (
+            <PlaylistCard
+              playlistName={playlist.albumName}
+              playlistId={playlist.id}
+              index={index}
+              handleDelete={() => isDeletePlaylistModalOpen(true)}
+              setPlaylistId={() => {
+                setPlaylistId(playlist.id);
+              }}
+              handleOpen={() => {
+                isPlaylistModalOpen(true);
+                setAlbumName(playlist.albumName);
+              }}
+              handleModalInfo={() => handleModalAlbum(playlist.id)}
+              authAxios={authAxios}
+            />
+          ))}
       </div>
       <CreateAlbumModal
         isModalOpen={newAlbumModal}
@@ -149,6 +174,9 @@ const MyPlaylists = () => {
           closeModal={isPlaylistModalOpen}
           albumName={albumName}
           albumSongs={songList}
+          albumId={playlistId}
+          authAxios={authAxios}
+          setSongList={setSongList}
         />
       )}
       <ToastContainer />

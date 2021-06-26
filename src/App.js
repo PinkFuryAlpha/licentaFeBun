@@ -21,6 +21,7 @@ import Modal from "react-modal";
 import MyProfile from "./components/pages/my-profile/MyProfile";
 import MyPlaylists from "./components/pages/playlists/MyPlaylists";
 import ServicesDescription from "./components/pages/ServicesDescription";
+import ForgotPassword from "./components/pages/ForgotPassword";
 
 Modal.setAppElement("#root");
 
@@ -36,12 +37,13 @@ function App() {
         {!user && <Navbar />}
         <Switch>
           <UserContext.Provider value={provider}>
-            <Route path="/home" exact component={Home} />
+            <Route path="/" exact component={Home} />
             <Route path="/about" exact component={About} />
             <Route path="/sign-in" exact component={Login} />
             <Route path="/sign-up" exact component={Register} />
             <Route path="/services" exact component={ServicesDescription} />
-            <Redirect to="/home" />
+            <Route path="/password-reset" exact component={ForgotPassword} />
+            {/* <Redirect to="/home" /> */}
             {user && (
               <div className="displayBody">
                 <SongContext.Provider value={{song, setSong}}>

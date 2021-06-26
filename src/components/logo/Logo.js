@@ -1,13 +1,13 @@
 import React from "react";
 import {LogoText, LogoWrapper, LogoImg} from "./LogoElements";
-import WebAppLogo from "./logo192.png";
+import WebAppLogo from "./vinyl.png";
 import {useHistory} from "react-router-dom";
 
 const Logo = (props) => {
   const history = useHistory();
 
   const handleHome = () => {
-    history.push("/home");
+    history.push("/");
   };
 
   return (

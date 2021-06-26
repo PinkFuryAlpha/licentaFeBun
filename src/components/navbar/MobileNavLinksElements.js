@@ -90,7 +90,7 @@ export const Close = styled(AiOutlineClose)`
   cursor: pointer;
 `;
 
-export const NavBtnLink = styled.nav`
+export const NavBtnLink = styled.a`
   border-radius: 6px;
   background: #256ce1;
   padding: 10px 22px;

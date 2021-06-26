@@ -27,9 +27,9 @@ const SliderImages = [
     image: Admin,
     name:"Admin",
     description: [
+      "(in development)",
       "can manage users",
       "can delete certain songs",
-      "can disable users",
     ],
   },
 ];

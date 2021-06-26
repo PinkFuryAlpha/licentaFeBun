@@ -12,11 +12,14 @@ import {
   IconWrapper,
   IconText,
   IconAlbum,
+  IconLogout
 } from "./SidebarElements";
+import { SongContext } from "../../../context/SongContext";
 
 const Sidebar = () => {
   const history = useHistory();
   const {user, setUser} = useContext(UserContext);
+  const {song, setSong} = useContext(SongContext);
 
   const handleClick = () => {
     history.push("/liked-songs");
@@ -34,9 +37,20 @@ const Sidebar = () => {
     history.push("/my-playlists")
   }
 
+  const handleLogout = () =>{
+    setUser(null);
+    setSong(null);
+    history.push("/")
+  }
+
   return (
     <SidebarContainer>
+      <div>
+      <IconWrapper>
+        <IconLogout onClick={handleLogout}></IconLogout>
+      </IconWrapper>
       <ProfilePicture pictureId={user.data.photoId} />
+      </div>
       <InfoText>
         {user.data.firstName} {user.data.lastName}
       </InfoText>
@@ -60,6 +74,7 @@ const Sidebar = () => {
         <IconAlbum></IconAlbum>
         <IconText onClick={handlePlaylist}>My Playlists</IconText>
       </IconWrapper>
+      <SeparatorNavbar />
     </SidebarContainer>
   );
 };
