@@ -98,7 +98,7 @@ const LikedSongs = () => {
         </div>
         <div>
           <h1 className="title">Here are your favourite songs!</h1>
-          <h3 className="title_info">There are: 69 liked songs</h3>
+          <h3 className="title_info">There are: xx liked songs</h3>
         </div>
       </div>
       <div className="play_container">

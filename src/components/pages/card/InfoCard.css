@@ -12,10 +12,12 @@ p {
   margin: 2px !important;
 }
 
-
+.stats{
+  padding: 20px;
+}
 
 .card_container {
-  width: 330px;
+  width: 370px;
   height: 100px;
   background: #740154;
   display: flex;

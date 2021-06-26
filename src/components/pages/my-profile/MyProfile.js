@@ -236,7 +236,7 @@ const MyProfile = () => {
           <p className="board">Songs Board, remove unwanted songs:</p>
           <div className="user_songs_container">
             {userSongs.map((song, index) => (
-              <InfoCard info={song} removeSong={removeSong} />
+              <InfoCard info={song} removeSong={removeSong} isArtist={isArtist}/>
             ))}
           </div>
         </div>

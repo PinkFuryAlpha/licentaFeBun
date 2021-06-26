@@ -101,7 +101,7 @@ const Songs = ({pagination, authToken, setPages, searchTerm}) => {
             </SongNameContainer>
             <SongText>{song.artists.map((artist, index) => artist)}</SongText>
             <SongText>{song.genre}</SongText>
-            <SongText>{song.views}</SongText>
+            <SongText>{Math.ceil(song.views/3)}</SongText>
             <SongText>{song.upVotes}</SongText>
             <SongOptions
               onClick={() => {
